@@ -1,7 +1,10 @@
 import Head from 'next/head'
+import { useAuth } from '../lib/auth'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+
+  const auth = useAuth();
   return (
     <div className={styles.container}>
       <Head>
@@ -11,12 +14,16 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Easy comments
         </h1>
-
+        <p>{auth?.user?.email}</p>
+        {
+          auth.user && <button onClick={()=> auth.signout()}>Sign out</button>
+        }
+        <button onClick={() => auth.signinWithGithub()}>Sign in</button>
         <p className={styles.description}>
           Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          <code className={styles?.code}>pages/index.js</code>
         </p>
 
         <div className={styles.grid}>
